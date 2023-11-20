@@ -7,13 +7,13 @@ function getComputerChoice() {
     const computerChoice = choices[Math.floor(Math.random() * choices.length)];
     return computerChoice;
 }
-console.log(getComputerChoice())
+
 function getPlayerChoice() {
     const playerChoice = prompt("Please enter your choice").toLowerCase();
     return playerChoice;
 }
 
-/* function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
     if (playerSelection === "rock" && computerSelection === "paper") {
         return "You lose! paper beats rock"
     } else if (playerSelection === "paper" && computerSelection === "rock") {
@@ -29,8 +29,8 @@ function getPlayerChoice() {
     } else {
         return "It's a draw"
     }
-} */
-
+}
+console.log(playRound(getPlayerChoice(), getComputerChoice()))
 /* 
 function game(rounds) {
     for (let i = 0; i < rounds; i++) {
