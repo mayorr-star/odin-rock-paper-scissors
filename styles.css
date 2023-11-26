@@ -40,6 +40,8 @@ h1.header, strong#winner{
 
 strong#winner{
     font-size: 32px;
+    display: inline-block;
+    width: 400px;
 }
 
 .winner-box{
