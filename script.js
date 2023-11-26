@@ -1,20 +1,25 @@
-/*
-Declare a function called getComputerChoice that will randomly select rock, paper or scissors as the computer's choice
-*/
+const buttons = document.querySelectorAll(".game-buttons");
+const winner = document.querySelector("#winner");
+const playerScore = document.getElementById("player-score");
+const ComputerScore = document.getElementById("computer-score");
+
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"];
     const computerChoice = choices[Math.floor(Math.random() * choices.length)];
     return computerChoice;
 }
 
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const playerChoice = button.textContent;
+        winner.textContent = playRound(playerChoice, getComputerChoice());
+        displayScoreline();
+        declareWinner()
+    })
+})
 
-function getPlayerChoice() {
-    const playerChoice = prompt("Please enter your choice").toLowerCase();
-    return playerChoice;
-}
-
-let playerScore = 0;
-let computerScore = 0; 
+let playerWins = 0;
+let computerWins = 0; 
 let result = null;
 
 function playRound(playerSelection, computerSelection) {
@@ -27,9 +32,9 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
         result =  "You lose! rock beats scissors"
     } else if (playerSelection === "paper" && computerSelection === "scissors") {
-        result =  "You lose! paper beats scissors"
+        result =  "You lose! scissors beats paper"
     } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        result =  "You win! scissors beats paper"
+        result =  "You win! paper beats scissors"
     } else {
         result =  "It's a draw"
     }
@@ -37,22 +42,27 @@ function playRound(playerSelection, computerSelection) {
     
 }
 
-function game() {
-    let index = 0;
-    while (index < 5) {
-        console.log(playRound(getPlayerChoice(), getComputerChoice()))
-        index++;
+function displayScoreline() {
         switch (true) {
             case result.indexOf("You win") !== -1:
-                playerScore++;
-                console.log(`playerScore: ${playerScore}`);
+                playerWins++;
+                playerScore.textContent = `YourScore: ${playerWins}`;
                 break;
             case result.indexOf("You lose") !== -1:
-                computerScore++;
-                console.log(`computerScore: ${computerScore}`)
+                computerWins++;
+                ComputerScore.textContent = `computerScore: ${computerWins}`;
                 break;
         }
-    }
-    console.log(playerScore > computerScore ? "You win!" : "You lose!");
 }
-game()
+
+function declareWinner() {
+    const winningScore = 5;
+    const scoreValues = [playerWins, computerWins];
+    for (let i = 0; i < scoreValues.length; i++) {
+        if (scoreValues[0] === winningScore) {
+            winner.textContent = "YOU WIN!";
+        } else if (scoreValues[1] === winningScore) {
+            winner.textContent = "YOU LOSE!";
+        }
+    }
+}
